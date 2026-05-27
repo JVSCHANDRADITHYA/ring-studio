@@ -1,47 +1,88 @@
 export const BRAND = {
-  name: "LUMIÈRE",
-  tagline: "Crafted in Light",
-  sub: "Bespoke Fine Jewellery · Est. 2024",
+  name: "URUMI",
+  tagline: "Crafted in Motion",
+  sub: "Bespoke fine jewellery, rendered in real time",
 }
 
 export const METALS = ["white", "yellow", "rose", "platinum", "palladium"]
 
 export const METAL_META = {
-  white:     { label: "White Gold",  short: "White",   color: "#E4E4E4", glow: "rgba(228,228,228,0.55)" },
-  yellow:    { label: "Yellow Gold", short: "Yellow",  color: "#D4AF37", glow: "rgba(212,175,55,0.65)"  },
-  rose:      { label: "Rose Gold",   short: "Rose",    color: "#D89A8D", glow: "rgba(216,154,141,0.65)" },
-  platinum:  { label: "Platinum",    short: "Plat.",   color: "#C9CCD3", glow: "rgba(201,204,211,0.55)" },
-  palladium: { label: "Palladium",   short: "Pallad.", color: "#BFC2C6", glow: "rgba(191,194,198,0.5)"  },
+  white: {
+    label: "White Gold",
+    short: "White",
+    color: "#e8e5df",
+    glow: "rgba(232, 229, 223, 0.5)",
+    price: 0,
+  },
+  yellow: {
+    label: "Yellow Gold",
+    short: "Yellow",
+    color: "#d7ad4d",
+    glow: "rgba(215, 173, 77, 0.6)",
+    price: 280,
+  },
+  rose: {
+    label: "Rose Gold",
+    short: "Rose",
+    color: "#d99a8a",
+    glow: "rgba(217, 154, 138, 0.58)",
+    price: 220,
+  },
+  platinum: {
+    label: "Platinum",
+    short: "Plat.",
+    color: "#ccd1d8",
+    glow: "rgba(204, 209, 216, 0.5)",
+    price: 720,
+  },
+  palladium: {
+    label: "Palladium",
+    short: "Pallad.",
+    color: "#b7bcc3",
+    glow: "rgba(183, 188, 195, 0.45)",
+    price: 460,
+  },
 }
 
 export const STONES = ["round", "oval", "pear", "princess"]
 
 export const STONE_LABELS = {
-  round:    "Brilliant",
-  oval:     "Oval",
-  pear:     "Pear",
+  round: "Brilliant",
+  oval: "Oval",
+  pear: "Pear",
   princess: "Princess",
+}
+
+export const STONE_META = {
+  round: { label: "Brilliant", profile: "Maximum fire", price: 0 },
+  oval: { label: "Oval", profile: "Elongated glow", price: 620 },
+  pear: { label: "Pear", profile: "Soft asymmetry", price: 480 },
+  princess: { label: "Princess", profile: "Clean geometry", price: 760 },
 }
 
 export const PRODUCTS = [
   {
     id: "eternal-solitaire",
     name: "Eternal Solitaire",
-    subtitle: "Round Brilliant · 1.2ct",
+    subtitle: "Round brilliant, 1.2 ct",
     price: "From $4,200",
+    basePrice: 4200,
     tag: "Bestseller",
-    description: "A timeless round brilliant solitaire, set in hand-polished 18k gold with perfectly symmetrical prongs that let light pour through the stone.",
+    description:
+      "A refined solitaire with a low cathedral lift, polished prongs, and a stone-forward silhouette.",
     metal: "rose",
     stone: "round",
     glb: "/ring_4.glb",
   },
   {
-    id: "lumiere-oval",
-    name: "Lumière Oval",
-    subtitle: "Oval Cut · 1.5ct",
+    id: "lumen-oval",
+    name: "Lumen Oval",
+    subtitle: "Oval cut, 1.5 ct",
     price: "From $5,800",
+    basePrice: 5800,
     tag: "New",
-    description: "An elongated oval that flatters the finger. Set low in a cathedral band for an effortlessly modern silhouette.",
+    description:
+      "An elongated center stone set on a tapered band for a clean, modern proportion.",
     metal: "yellow",
     stone: "oval",
     glb: "/ring_4.glb",
@@ -49,10 +90,12 @@ export const PRODUCTS = [
   {
     id: "arabesque-pear",
     name: "Arabesque Pear",
-    subtitle: "Pear Cut · 1.0ct",
+    subtitle: "Pear cut, 1.0 ct",
     price: "From $3,900",
-    tag: "Exclusive",
-    description: "Inspired by Art Nouveau motifs — a pear-shaped stone suspended in a delicate pavé halo, evoking petals in bloom.",
+    basePrice: 3900,
+    tag: "Atelier",
+    description:
+      "A graceful pear profile designed for directional sparkle and a delicate hand feel.",
     metal: "white",
     stone: "pear",
     glb: "/ring_4.glb",
@@ -60,39 +103,55 @@ export const PRODUCTS = [
   {
     id: "empress-princess",
     name: "Empress Princess",
-    subtitle: "Princess Cut · 1.8ct",
+    subtitle: "Princess cut, 1.8 ct",
     price: "From $6,500",
+    basePrice: 6500,
     tag: "Limited",
-    description: "Sharp corners. Maximum fire. The princess cut is geometry made breathtaking, seated in a four-claw platinum throne.",
+    description:
+      "Crisp geometry, high brilliance, and a platinum-forward design language.",
     metal: "platinum",
     stone: "princess",
     glb: "/ring_4.glb",
   },
 ]
 
-export const NAV_LINKS = ["Collections", "Bespoke", "Heritage", "Atelier"]
+export const NAV_LINKS = ["Studio", "Materials", "Reviews"]
+
+export const PROCESS_STEPS = [
+  {
+    num: "01",
+    title: "Choose",
+    body: "Start from a signature design and tune the metal and stone cut in real time.",
+  },
+  {
+    num: "02",
+    title: "Inspect",
+    body: "Rotate, zoom, and compare finishes before a specialist prepares the quote.",
+  },
+  {
+    num: "03",
+    title: "Craft",
+    body: "Your final selection is hand-finished, stone-set, and certified by the atelier.",
+  },
+]
 
 export const TESTIMONIALS = [
   {
-    quote: "The moment I saw it in the configurator, I knew it was the one. Three weeks later it arrived — even more beautiful in person.",
+    quote:
+      "The 3D preview made the decision feel calm. I could see the metal and stone together before committing.",
     author: "Priya M.",
     location: "Mumbai",
   },
   {
-    quote: "Lumière created our rings with a level of care I've never seen. Every detail discussed, every wish honoured.",
-    author: "James & Clara T.",
+    quote:
+      "It felt like a studio appointment online: precise, visual, and beautifully easy to navigate.",
+    author: "Clara T.",
     location: "London",
   },
   {
-    quote: "I designed my own engagement ring — a dream I never thought possible. The 3D preview made it so real.",
+    quote:
+      "We configured the ring together in minutes, then refined the final details with the atelier.",
     author: "Anika R.",
     location: "Dubai",
   },
-]
-
-export const PROCESS_STEPS = [
-  { num: "01", title: "Envision", body: "Explore our configurator. Choose your metal, cut, and setting style in real-time 3D." },
-  { num: "02", title: "Consult", body: "A dedicated Lumière atelier specialist contacts you within 24 hours to refine every detail." },
-  { num: "03", title: "Craft", body: "Master goldsmiths hand-set your stone in our Jaipur atelier over 6–8 weeks." },
-  { num: "04", title: "Receive", body: "Your ring arrives in a hand-stitched leather box with a lifetime craftsmanship certificate." },
 ]
