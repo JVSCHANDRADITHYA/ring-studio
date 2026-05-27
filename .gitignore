@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.vscode/
+
+*.glb
+
+db_data/
+wordpress/
+plugins/
+
+*.sock
