@@ -1,55 +1,99 @@
-import { Canvas } from "@react-three/fiber"
+import { useEffect, useRef } from "react"
 
-import {
-  Environment,
-  Float,
-} from "@react-three/drei"
-
-import Ring3D from "./Ring3D"
+const TOTAL_FRAMES = 76
 
 export default function HeroCanvas() {
+  const canvasRef = useRef(null)
+
+  useEffect(() => {
+    const canvas = canvasRef.current
+    const context = canvas.getContext("2d")
+
+    const currentFrame = (index) =>
+      `/frames/ezgif-frame-${String(index + 1).padStart(3, "0")}.jpg`
+
+    const images = []
+
+    let currentFrameIndex = 0
+
+    for (let i = 0; i < TOTAL_FRAMES; i++) {
+      const img = new Image()
+      img.src = currentFrame(i)
+      images.push(img)
+    }
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+      render()
+    }
+
+    function render() {
+      const image = images[currentFrameIndex]
+
+      if (!image || !image.complete) return
+
+      context.clearRect(0, 0, canvas.width, canvas.height)
+
+      const canvasWidth = canvas.width
+      const canvasHeight = canvas.height
+
+      const imageWidth = image.width
+      const imageHeight = image.height
+
+const scale = Math.max(
+  canvasWidth / imageWidth,
+  canvasHeight / imageHeight
+) * 1.02
+
+      const width = imageWidth * scale
+      const height = imageHeight * scale
+
+const x = (canvasWidth - width) / 2
+const y = (canvasHeight - height) / 2 + 20
+
+      context.drawImage(
+        image,
+        x,
+        y,
+        width,
+        height
+      )
+    }
+
+    images[0].onload = render
+
+    function onScroll() {
+      const scrollTop = window.scrollY
+
+      const heroSection = document.querySelector(".hero-section")
+
+      const maxScroll =
+        heroSection.offsetHeight - window.innerHeight
+
+      const scrollFraction = scrollTop / maxScroll
+
+const targetFrame = scrollFraction * (TOTAL_FRAMES - 1)
+
+currentFrameIndex = Math.round(targetFrame)
+
+      requestAnimationFrame(render)
+    }
+
+    resizeCanvas()
+
+    window.addEventListener("resize", resizeCanvas)
+    window.addEventListener("scroll", onScroll)
+
+    return () => {
+      window.removeEventListener("resize", resizeCanvas)
+      window.removeEventListener("scroll", onScroll)
+    }
+  }, [])
+
   return (
-    <div className="hero-canvas hero-canvas-premium">
-      <Canvas
-        dpr={[1, 1.7]}
-        camera={{
-          position: [0, 0, 4],
-          fov: 38,
-        }}
-      >
-        <color attach="background" args={["#050505"]} />
-
-        <ambientLight intensity={0.5} />
-
-        <directionalLight
-          position={[5, 5, 5]}
-          intensity={5}
-        />
-
-        <directionalLight
-          position={[-4, -1, -3]}
-          intensity={1.2}
-          color="#8ad8df"
-        />
-
-        <Float
-          speed={1.5}
-          rotationIntensity={0.15}
-          floatIntensity={0.2}
-        >
-          <Ring3D
-            src="/eternal_ring.glb"
-            applyMaterials={false}
-            rotation={[0.05, -0.55, 0]}
-            scale={1}
-            position={[0, 0, 0]}
-            autoRotate
-            rotationSpeed={0.002}
-          />
-        </Float>
-
-        <Environment preset="city" />
-      </Canvas>
+    <div className="hero-canvas">
+      <canvas ref={canvasRef} />
     </div>
   )
 }

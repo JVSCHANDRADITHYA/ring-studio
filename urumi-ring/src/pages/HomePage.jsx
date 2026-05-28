@@ -9,9 +9,9 @@ import HeroCanvas from "../components/HeroCanvas"
 function Hero({ featuredProduct, onNavigate, onConfigure }) {
   return (
     <section className="hero-section">
-      <HeroCanvas />
 
       <div className="hero-sticky">
+        <HeroCanvas />
         <div className="hero-orbit" />
         <div className="hero-tunnel-glow" />
         <div className="noise" />
