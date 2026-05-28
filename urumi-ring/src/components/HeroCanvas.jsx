@@ -1,12 +1,18 @@
+// FULL HeroCanvas.jsx
+// REPLACE ENTIRE FILE
+
 import { useEffect, useRef } from "react"
 
-const TOTAL_FRAMES = 76
+const TOTAL_FRAMES = 240
 
 export default function HeroCanvas() {
   const canvasRef = useRef(null)
 
   useEffect(() => {
     const canvas = canvasRef.current
+
+    if (!canvas) return
+
     const context = canvas.getContext("2d")
 
     const currentFrame = (index) =>
@@ -25,6 +31,7 @@ export default function HeroCanvas() {
     function resizeCanvas() {
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
+
       render()
     }
 
@@ -33,7 +40,12 @@ export default function HeroCanvas() {
 
       if (!image || !image.complete) return
 
-      context.clearRect(0, 0, canvas.width, canvas.height)
+      context.clearRect(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      )
 
       const canvasWidth = canvas.width
       const canvasHeight = canvas.height
@@ -41,16 +53,18 @@ export default function HeroCanvas() {
       const imageWidth = image.width
       const imageHeight = image.height
 
-const scale = Math.max(
-  canvasWidth / imageWidth,
-  canvasHeight / imageHeight
-) * 1.02
+      // MUCH better scaling
+      const scale = Math.min(
+        canvasWidth / imageWidth,
+        canvasHeight / imageHeight
+      ) * 0.95
 
       const width = imageWidth * scale
       const height = imageHeight * scale
 
-const x = (canvasWidth - width) / 2
-const y = (canvasHeight - height) / 2 + 20
+      // centered properly
+      const x = (canvasWidth - width) / 2
+      const y = (canvasHeight - height) / 2 + 30
 
       context.drawImage(
         image,
@@ -64,30 +78,78 @@ const y = (canvasHeight - height) / 2 + 20
     images[0].onload = render
 
     function onScroll() {
-      const scrollTop = window.scrollY
+      const intro =
+        document.querySelector(".landing-intro")
 
-      const heroSection = document.querySelector(".hero-section")
+      const hero =
+        document.querySelector(".hero-section")
 
-      const maxScroll =
-        heroSection.offsetHeight - window.innerHeight
+      if (!intro || !hero) return
 
-      const scrollFraction = scrollTop / maxScroll
+      // animation starts AFTER intro exits
+      const startScroll = intro.offsetHeight
 
-const targetFrame = scrollFraction * (TOTAL_FRAMES - 1)
+      // total animation distance
+      const endScroll =
+        startScroll +
+        hero.offsetHeight -
+        window.innerHeight
 
-currentFrameIndex = Math.round(targetFrame)
+      const currentScroll = window.scrollY
+
+      // BEFORE animation start
+      if (currentScroll < startScroll) {
+        currentFrameIndex = 0
+        render()
+        return
+      }
+
+      // AFTER animation end
+      if (currentScroll > endScroll) {
+        currentFrameIndex = TOTAL_FRAMES - 1
+        render()
+        return
+      }
+
+      // animation progress
+      const scrollFraction =
+        (currentScroll - startScroll) /
+        (endScroll - startScroll)
+
+      const frameIndex = Math.min(
+        TOTAL_FRAMES - 1,
+        Math.floor(
+          scrollFraction * TOTAL_FRAMES
+        )
+      )
+
+      currentFrameIndex = frameIndex
 
       requestAnimationFrame(render)
     }
 
     resizeCanvas()
 
-    window.addEventListener("resize", resizeCanvas)
-    window.addEventListener("scroll", onScroll)
+    window.addEventListener(
+      "resize",
+      resizeCanvas
+    )
+
+    window.addEventListener(
+      "scroll",
+      onScroll
+    )
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas)
-      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener(
+        "resize",
+        resizeCanvas
+      )
+
+      window.removeEventListener(
+        "scroll",
+        onScroll
+      )
     }
   }, [])
 

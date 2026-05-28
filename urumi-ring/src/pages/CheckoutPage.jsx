@@ -132,9 +132,7 @@ export default function CheckoutPage({ item, onBack, onHome }) {
             Finalise your <span>bespoke ring.</span>
           </h1>
           <p className="checkout-copy">
-            Share your contact and delivery details. This custom checkout keeps
-            the experience inside Urumi while preserving the exact variation
-            selected from the configurator.
+            Share your contact and delivery details. We support Guest Checkout, so no account creation is necessary. The atelier will follow up to confirm your order and arrange payment and delivery.
           </p>
 
           {submitted ? (
@@ -200,7 +198,7 @@ export default function CheckoutPage({ item, onBack, onHome }) {
                   <strong>Cash on Delivery</strong>
                 </div>
                 <p>
-                  Your WooCommerce order will be created as Cash on Delivery and
+                  Your order will be created as Cash on Delivery and
                   moved to processing for atelier fulfilment.
                 </p>
               </div>
@@ -261,8 +259,7 @@ export default function CheckoutPage({ item, onBack, onHome }) {
           </div>
 
           <p className="checkout-fineprint">
-            This page creates a WooCommerce order directly without redirecting
-            to the product page. Payment method is Cash on Delivery only.
+            This page finalizes your order. For further assistance, please contact our team. Payment method is Cash on Delivery only.
           </p>
         </aside>
       </main>

@@ -232,11 +232,11 @@ export default function Configurator({ product, onBack, onCheckout }) {
             <strong>{STONE_LABELS[stone]}</strong>
           </div>
           <div className="summary-row summary-total">
-            <span>{wooPrice ? "WooCommerce price" : "Estimated from"}</span>
+            <span>{wooPrice ? "Quote price" : "Estimated from"}</span>
             <strong>{isLoadingVariations ? "Loading..." : summaryPrice}</strong>
           </div>
           <div className="summary-row">
-            <span>Backend match</span>
+            <span>Product ID</span>
             <strong>
               {isLoadingVariations
                 ? "Checking"

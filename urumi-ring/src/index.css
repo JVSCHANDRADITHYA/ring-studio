@@ -203,53 +203,102 @@ a:focus-visible {
 .checkout-page {
   min-height: 100vh;
 }
-.hero-section {
-  position: relative;
-  height: 500vh;
-  background: #050505;
-}
+/* REPLACE YOUR CURRENT .hero-section */
 
-.hero-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  background: #050505;
-}
+/* REPLACE ONLY .hero-section */
 
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  width: 100%;
-  height: 100%;
-  background: #050505;
-}
 
-.hero-canvas canvas {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
 
-.hero-content {
+
+/* REPLACE YOUR CURRENT .hero-sticky */
+
+/* KEEP THIS EXACTLY */
+/* =========================
+   LANDING INTRO
+========================= */
+.landing-intro {
   position: relative;
   z-index: 5;
 
-  width: 100%;
-  height: 100%;
+  height: 100vh;
 
   display: flex;
   align-items: center;
 
   padding-inline: 8vw;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      ellipse at center top,
+      rgba(28, 36, 58, 0.38) 0%,
+      rgba(10, 12, 18, 0.22) 35%,
+      rgba(5, 5, 5, 0.82) 72%,
+      #050505 100%
+    );
 }
 
-.hero-copy-block {
-  max-width: 580px;
+.landing-intro::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: -1px;
+
+  height: 220px;
+
+  z-index: 3;
+
+  pointer-events: none;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(5,5,5,0) 0%,
+    rgba(5,5,5,0.12) 18%,
+    rgba(5,5,5,0.34) 38%,
+    rgba(5,5,5,0.72) 72%,
+    #050505 100%
+  );
+
+  filter: blur(18px);
+}
+/* SOFT VIGNETTE BLEND INTO HERO */
+
+.landing-intro::after {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: -180px;
+
+  width: 100%;
+  height: 420px;
+
+  pointer-events: none;
+
+  z-index: 2;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(5,5,5,0) 0%,
+      rgba(5,5,5,0.12) 34%,
+      rgba(5,5,5,0.34) 52%,
+      rgba(5,5,5,0.72) 74%,
+      #050505 100%
+    );
+
+  filter: blur(70px);
+}
+.landing-intro-inner {
+  max-width: 640px;
 }
 
-.hero-title {
+.landing-title {
   margin: 0;
 
   font-size: clamp(4rem, 8vw, 7rem);
@@ -259,7 +308,11 @@ a:focus-visible {
   color: white;
 }
 
-.hero-copy {
+.landing-title span {
+  color: rgba(255,255,255,0.72);
+}
+
+.landing-copy {
   margin-top: 2rem;
 
   max-width: 520px;
@@ -277,29 +330,70 @@ a:focus-visible {
   margin-top: 2rem;
 }
 
-.hero-scroll-panel {
-  position: absolute;
 
-  left: 50%;
-  bottom: 40px;
+/* =========================
+   HERO SEQUENCE
+========================= */
 
-  transform: translateX(-50%);
+.hero-section {
+  position: relative;
 
-  z-index: 5;
+  height: 220vh;
 
-  text-align: center;
+  margin-top: -100vh;
 
-  color: rgba(255,255,255,0.5);
+  background: #050505;
+
+  z-index: 1;
 }
 
-.hero-scroll-panel strong {
+.hero-sticky {
+  position: sticky;
+  top: 0;
+
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: #050505;
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+.hero-canvas canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
   display: block;
 
-  margin-top: 0.25rem;
-
-  color: white;
+  object-fit: cover;
 }
 
+
+/* =========================
+   REMOVE OLD HERO EFFECTS
+========================= */
+
+.hero-content,
+.hero-copy-block,
+.hero-scroll-panel,
+.hero-orbit,
+.hero-tunnel-glow,
+.noise,
+.hero-canvas-premium {
+  display: none !important;
+}
 .brand-section {
   min-height: 102svh;
   margin-top: -1px;
@@ -519,6 +613,26 @@ a:focus-visible {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
+}
+
+.config-viewer {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.config-canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+}
+
+.config-canvas canvas {
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
 }
 
 .config-page {
@@ -1015,6 +1129,210 @@ a:focus-visible {
   }
 }
 
+/* ADD THESE TO index.css */
+
+
+/* =========================
+   LANDING INTRO
+========================= */
+
+.landing-intro {
+  position: relative;
+  z-index: 5;
+    background: transparent;
+
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  padding-inline: 8vw;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(20,20,30,0.55),
+      #050505 60%
+    );
+
+  overflow: hidden;
+}
+
+.landing-intro-inner {
+  max-width: 620px;
+}
+
+.landing-title {
+  margin: 0;
+
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+
+  color: white;
+}
+
+.landing-title span {
+  color: rgba(255,255,255,0.72);
+}
+
+.landing-copy {
+  margin-top: 2rem;
+
+  max-width: 520px;
+
+  color: rgba(255,255,255,0.62);
+
+  font-size: 1rem;
+  line-height: 1.8;
+}
+/* =========================
+   LANDING INTRO
+========================= */
+
+.landing-intro {
+  position: relative;
+  z-index: 5;
+
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+
+  padding-inline: 8vw;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(20,20,30,0.45),
+      #050505 60%
+    );
+
+  overflow: hidden;
+}
+
+.landing-intro-inner {
+  max-width: 620px;
+}
+
+.landing-title {
+  margin: 0;
+
+  font-size: clamp(4rem, 8vw, 7rem);
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+
+  color: white;
+}
+
+.landing-title span {
+  color: rgba(255,255,255,0.74);
+}
+
+.landing-copy {
+  margin-top: 2rem;
+
+  max-width: 520px;
+
+  color: rgba(255,255,255,0.62);
+
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+
+/* =========================
+   HERO SEQUENCE
+========================= */
+
+.hero-section {
+  position: relative;
+
+  height: 340vh;
+
+  background: #050505;
+}
+
+.hero-sticky {
+  position: sticky;
+  top: 0;
+
+  height: 100vh;
+
+  overflow: hidden;
+
+  background: #050505;
+}
+
+.hero-canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+}
+
+.hero-canvas canvas {
+  position: absolute;
+  inset: 0;
+
+  width: 100vw !important;
+  height: 100vh !important;
+
+  display: block;
+
+  object-fit: cover;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+
+/* =========================
+   REMOVE OLD EFFECTS
+========================= */
+
+.hero-orbit,
+.hero-tunnel-glow,
+.hero-scroll-panel,
+.hero-canvas-premium {
+  display: none !important;
+}
+/* =========================
+   HERO BUTTONS
+========================= */
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+
+  margin-top: 2rem;
+}
+
+
+/* =========================
+   REMOVE OLD EFFECTS
+========================= */
+
+.hero-orbit,
+.hero-tunnel-glow,
+.noise,
+.hero-scroll-panel,
+.hero-canvas-premium {
+  display: none !important;
+}
+
 @media (max-width: 760px) {
   .navbar {
     height: 66px;
@@ -1029,32 +1347,7 @@ a:focus-visible {
     letter-spacing: 0.2em;
   }
 
-  .hero-content {
-    padding-top: 104px;
-  }
 
-  .hero-canvas-premium {
-    transform: translateX(30vw);
-  }
-
-  .hero-orbit {
-    right: -34vw;
-    width: 112vw;
-    opacity: 0.65;
-  }
-
-  .hero-title {
-    font-size: clamp(48px, 17vw, 82px);
-  }
-
-  .hero-copy {
-    max-width: 340px;
-  }
-
-  .hero-scroll-panel {
-    right: 18px;
-    bottom: 22px;
-  }
 
   .process-grid,
   .testimonial-grid,

@@ -4,35 +4,56 @@ import Configurator from "./components/Configurator"
 import { PRODUCTS } from "./data/constants"
 import CheckoutPage from "./pages/CheckoutPage"
 import HomePage from "./pages/HomePage"
-import StorePage from "./pages/StorePage"
 
 export default function App() {
   const [page, setPage] = useState("home")
-  const [selectedProduct, setSelectedProduct] = useState(PRODUCTS[0])
-  const [checkoutItem, setCheckoutItem] = useState(null)
+
+  const [selectedProduct, setSelectedProduct] =
+    useState(PRODUCTS[0])
+
+  const [checkoutItem, setCheckoutItem] =
+    useState(null)
 
   function navigateTo(dest) {
     setPage(dest)
-    window.scrollTo({ top: 0, behavior: "smooth" })
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    })
   }
 
-  function openConfigurator(product = PRODUCTS[0]) {
+  function openConfigurator(
+    product = PRODUCTS[0]
+  ) {
     setSelectedProduct(product)
+
     setPage("configurator")
-    window.scrollTo({ top: 0 })
+
+    window.scrollTo({
+      top: 0,
+    })
   }
 
   function openCheckout(item) {
     setCheckoutItem(item)
+
     setPage("checkout")
-    window.scrollTo({ top: 0 })
+
+    window.scrollTo({
+      top: 0,
+    })
   }
 
   return (
     <main className="app-shell">
-      {page !== "configurator" && page !== "checkout" && (
-        <Navbar page={page} onNavigate={navigateTo} />
-      )}
+      {page !== "configurator" &&
+        page !== "checkout" && (
+          <Navbar
+            page={page}
+            onNavigate={navigateTo}
+          />
+        )}
 
       {page === "home" && (
         <HomePage
@@ -42,14 +63,13 @@ export default function App() {
         />
       )}
 
-      {page === "store" && (
-        <StorePage onConfigure={openConfigurator} />
-      )}
-
       {page === "configurator" && (
         <Configurator
           product={selectedProduct}
-          onBack={() => navigateTo("store")}
+
+          // THIS IS THE IMPORTANT CHANGE
+          onBack={() => navigateTo("home")}
+
           onCheckout={openCheckout}
         />
       )}
@@ -59,9 +79,14 @@ export default function App() {
           item={checkoutItem}
           onBack={() => {
             setPage("configurator")
-            window.scrollTo({ top: 0 })
+
+            window.scrollTo({
+              top: 0,
+            })
           }}
-          onHome={() => navigateTo("home")}
+          onHome={() =>
+            navigateTo("home")
+          }
         />
       )}
     </main>
