@@ -44,7 +44,7 @@ function formatWooPrice(price) {
   return formatUsd.format(numericPrice)
 }
 
-export default function Configurator({ product, onBack }) {
+export default function Configurator({ product, onBack, onCheckout }) {
   const [metal, setMetal] = useState(product?.metal || "rose")
   const [stone, setStone] = useState(product?.stone || "round")
   const [variations, setVariations] = useState([])
@@ -115,11 +115,18 @@ export default function Configurator({ product, onBack }) {
 
   const wooPrice = formatWooPrice(matchedVariation?.price)
   const summaryPrice = wooPrice || formatUsd.format(estimate)
-  const hasLiveMatch = Boolean(matchedVariation?.permalink)
+  const hasLiveMatch = Boolean(matchedVariation)
 
-  function openMatchedVariation() {
-    if (!matchedVariation?.permalink) return
-    window.location.href = matchedVariation.permalink
+  function continueToCheckout() {
+    if (!matchedVariation) return
+
+    onCheckout({
+      product,
+      metal,
+      stone,
+      variation: matchedVariation,
+      price: wooPrice || summaryPrice,
+    })
   }
 
   return (
@@ -250,9 +257,9 @@ export default function Configurator({ product, onBack }) {
           <button
             className="primary-button"
             disabled={!hasLiveMatch}
-            onClick={openMatchedVariation}
+            onClick={continueToCheckout}
           >
-            {hasLiveMatch ? "Open Product" : "Select Available Combo"}
+            {hasLiveMatch ? "Continue to Checkout" : "Select Available Combo"}
           </button>
           <button className="ghost-button">Book Studio Call</button>
         </div>

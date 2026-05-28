@@ -2,12 +2,14 @@ import { useState } from "react"
 import Navbar from "./components/Navbar"
 import Configurator from "./components/Configurator"
 import { PRODUCTS } from "./data/constants"
+import CheckoutPage from "./pages/CheckoutPage"
 import HomePage from "./pages/HomePage"
 import StorePage from "./pages/StorePage"
 
 export default function App() {
   const [page, setPage] = useState("home")
   const [selectedProduct, setSelectedProduct] = useState(PRODUCTS[0])
+  const [checkoutItem, setCheckoutItem] = useState(null)
 
   function navigateTo(dest) {
     setPage(dest)
@@ -20,9 +22,15 @@ export default function App() {
     window.scrollTo({ top: 0 })
   }
 
+  function openCheckout(item) {
+    setCheckoutItem(item)
+    setPage("checkout")
+    window.scrollTo({ top: 0 })
+  }
+
   return (
     <main className="app-shell">
-      {page !== "configurator" && (
+      {page !== "configurator" && page !== "checkout" && (
         <Navbar page={page} onNavigate={navigateTo} />
       )}
 
@@ -39,7 +47,22 @@ export default function App() {
       )}
 
       {page === "configurator" && (
-        <Configurator product={selectedProduct} onBack={() => navigateTo("store")} />
+        <Configurator
+          product={selectedProduct}
+          onBack={() => navigateTo("store")}
+          onCheckout={openCheckout}
+        />
+      )}
+
+      {page === "checkout" && (
+        <CheckoutPage
+          item={checkoutItem}
+          onBack={() => {
+            setPage("configurator")
+            window.scrollTo({ top: 0 })
+          }}
+          onHome={() => navigateTo("home")}
+        />
       )}
     </main>
   )

@@ -78,6 +78,7 @@ export const PRODUCTS = [
     tag: "Bestseller",
     description:
       "A refined solitaire with a low cathedral lift, polished prongs, and a stone-forward silhouette.",
+    wooProductId: 13,
     metal: "rose",
     stone: "round",
     glb: "/ring_4.glb",
@@ -91,6 +92,7 @@ export const PRODUCTS = [
     tag: "New",
     description:
       "An elongated center stone set on a tapered band for a clean, modern proportion.",
+    wooProductId: 13,
     metal: "yellow",
     stone: "oval",
     glb: "/ring_4.glb",
@@ -104,6 +106,7 @@ export const PRODUCTS = [
     tag: "Atelier",
     description:
       "A graceful pear profile designed for directional sparkle and a delicate hand feel.",
+    wooProductId: 13,
     metal: "white",
     stone: "pear",
     glb: "/ring_4.glb",
@@ -117,6 +120,7 @@ export const PRODUCTS = [
     tag: "Limited",
     description:
       "Crisp geometry, high brilliance, and a platinum-forward design language.",
+    wooProductId: 13,
     metal: "platinum",
     stone: "princess",
     glb: "/ring_4.glb",
