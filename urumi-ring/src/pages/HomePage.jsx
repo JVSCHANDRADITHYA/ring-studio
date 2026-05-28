@@ -37,23 +37,29 @@ function HeroRing({ product }) {
   const groupRef = useRef()
 
   useFrame(({ camera }) => {
-    const progress = smooth(clamp(window.scrollY / (window.innerHeight * 0.92), 0, 1))
+    const rawProgress = clamp(window.scrollY / (window.innerHeight * 1.48), 0, 1)
+    const settle = smooth(clamp(rawProgress / 0.36, 0, 1))
+    const passThrough = smooth(clamp((rawProgress - 0.18) / 0.72, 0, 1))
 
-    camera.position.x = THREE.MathUtils.lerp(0.12, 0, progress)
-    camera.position.y = THREE.MathUtils.lerp(0.18, 0, progress)
-    camera.position.z = THREE.MathUtils.lerp(4.55, 1.28, progress)
-    camera.fov = THREE.MathUtils.lerp(34, 58, progress)
-    camera.lookAt(0.45, 0.02, 0)
+    camera.position.x = THREE.MathUtils.lerp(0.28, -0.08, passThrough)
+    camera.position.y = THREE.MathUtils.lerp(0.2, -0.04, passThrough)
+    camera.position.z = THREE.MathUtils.lerp(5.25, 0.86, passThrough)
+    camera.fov = THREE.MathUtils.lerp(30, 72, passThrough)
+    camera.lookAt(
+      THREE.MathUtils.lerp(0.86, 0.02, passThrough),
+      THREE.MathUtils.lerp(0.08, -0.05, passThrough),
+      0,
+    )
     camera.updateProjectionMatrix()
 
     if (!groupRef.current) return
 
-    groupRef.current.position.x = THREE.MathUtils.lerp(1.12, 0.08, progress)
-    groupRef.current.position.y = THREE.MathUtils.lerp(0.02, -0.03, progress)
-    groupRef.current.rotation.x = THREE.MathUtils.lerp(0.05, 0.32, progress)
-    groupRef.current.rotation.y += 0.002 + progress * 0.007
-    groupRef.current.rotation.z = THREE.MathUtils.lerp(0, -0.12, progress)
-    groupRef.current.scale.setScalar(THREE.MathUtils.lerp(1.24, 3.35, progress))
+    groupRef.current.position.x = THREE.MathUtils.lerp(1.72, -0.08, passThrough)
+    groupRef.current.position.y = THREE.MathUtils.lerp(0.02, -0.12, passThrough)
+    groupRef.current.rotation.x = THREE.MathUtils.lerp(0.02, 0.78, passThrough)
+    groupRef.current.rotation.y += 0.0018 + settle * 0.004 + passThrough * 0.010
+    groupRef.current.rotation.z = THREE.MathUtils.lerp(0.04, -0.18, passThrough)
+    groupRef.current.scale.setScalar(THREE.MathUtils.lerp(1.02, 5.35, passThrough))
   })
 
   const heroRing = (
@@ -112,6 +118,7 @@ function Hero({ featuredProduct, onNavigate, onConfigure }) {
           <HeroStage product={featuredProduct} />
         </div>
         <div className="hero-orbit" />
+        <div className="hero-tunnel-glow" />
         <div className="noise" />
 
         <div className="hero-content">

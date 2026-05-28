@@ -56,7 +56,7 @@ export default function Ring3D({
 
     const metalMaterial = new THREE.MeshPhysicalMaterial({
       color: METALS_MAT[metal].color,
-      metalness: 0.92,
+      metalness: 1,
       roughness: METALS_MAT[metal].roughness,
       envMapIntensity: METALS_MAT[metal].env,
       clearcoat: 1,

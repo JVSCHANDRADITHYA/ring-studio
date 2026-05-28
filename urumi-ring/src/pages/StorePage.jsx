@@ -18,7 +18,7 @@ function StoreProductCard({ product, onConfigure }) {
               autoRotate
               rotationSpeed={0.0028}
             />
-            <Environment preset="city" />
+            <Environment preset="studio" />
             <OrbitControls enableZoom={false} enablePan={false} />
           </Canvas>
         </div>
