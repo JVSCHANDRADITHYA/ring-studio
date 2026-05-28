@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { Environment, OrbitControls, Stage } from "@react-three/drei"
 import Ring3D from "./Ring3D"
@@ -8,6 +8,7 @@ import {
   STONES,
   STONE_LABELS,
   STONE_META,
+  WOO_VARIATIONS_URL,
 } from "../data/constants"
 
 const formatUsd = new Intl.NumberFormat("en-US", {
@@ -16,14 +17,110 @@ const formatUsd = new Intl.NumberFormat("en-US", {
   maximumFractionDigits: 0,
 })
 
+function normalizeOption(value) {
+  return String(value || "")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "")
+}
+
+function getVariationAttribute(variation, name) {
+  return variation.attributes?.find(
+    (attribute) => normalizeOption(attribute.name) === normalizeOption(name),
+  )?.option
+}
+
+function optionMatches(apiValue, candidates) {
+  const normalizedApiValue = normalizeOption(apiValue)
+  return candidates.some((candidate) => normalizeOption(candidate) === normalizedApiValue)
+}
+
+function formatWooPrice(price) {
+  if (price === undefined || price === null || price === "") return null
+
+  const numericPrice = Number(price)
+  if (Number.isNaN(numericPrice)) return price
+
+  return formatUsd.format(numericPrice)
+}
+
 export default function Configurator({ product, onBack }) {
   const [metal, setMetal] = useState(product?.metal || "rose")
   const [stone, setStone] = useState(product?.stone || "round")
+  const [variations, setVariations] = useState([])
+  const [isLoadingVariations, setIsLoadingVariations] = useState(true)
+  const [variationError, setVariationError] = useState("")
+
+  useEffect(() => {
+    const controller = new AbortController()
+
+    async function loadVariations() {
+      try {
+        setIsLoadingVariations(true)
+        setVariationError("")
+
+        const response = await fetch(WOO_VARIATIONS_URL, {
+          signal: controller.signal,
+        })
+
+        if (!response.ok) {
+          throw new Error(`WooCommerce returned ${response.status}`)
+        }
+
+        const data = await response.json()
+        setVariations(Array.isArray(data) ? data : [])
+      } catch (error) {
+        if (error.name !== "AbortError") {
+          setVariationError(error.message || "Unable to load variations")
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setIsLoadingVariations(false)
+        }
+      }
+    }
+
+    loadVariations()
+
+    return () => controller.abort()
+  }, [])
 
   const estimate = useMemo(() => {
     const base = product?.basePrice || 4200
     return base + METAL_META[metal].price + STONE_META[stone].price
   }, [metal, product?.basePrice, stone])
+
+  const matchedVariation = useMemo(() => {
+    const metalCandidates = [
+      METAL_META[metal].wooOption,
+      METAL_META[metal].short,
+      METAL_META[metal].label,
+    ]
+    const stoneCandidates = [
+      STONE_META[stone].wooOption,
+      STONE_META[stone].label,
+      ...STONE_META[stone].aliases,
+    ]
+
+    return variations.find((variation) => {
+      const variationMetal = getVariationAttribute(variation, "Metal")
+      const variationStone = getVariationAttribute(variation, "Stone")
+
+      return (
+        optionMatches(variationMetal, metalCandidates) &&
+        optionMatches(variationStone, stoneCandidates)
+      )
+    })
+  }, [metal, stone, variations])
+
+  const wooPrice = formatWooPrice(matchedVariation?.price)
+  const summaryPrice = wooPrice || formatUsd.format(estimate)
+  const hasLiveMatch = Boolean(matchedVariation?.permalink)
+
+  function openMatchedVariation() {
+    if (!matchedVariation?.permalink) return
+    window.location.href = matchedVariation.permalink
+  }
 
   return (
     <div className="config-page">
@@ -128,13 +225,35 @@ export default function Configurator({ product, onBack }) {
             <strong>{STONE_LABELS[stone]}</strong>
           </div>
           <div className="summary-row summary-total">
-            <span>Estimated from</span>
-            <strong>{formatUsd.format(estimate)}</strong>
+            <span>{wooPrice ? "WooCommerce price" : "Estimated from"}</span>
+            <strong>{isLoadingVariations ? "Loading..." : summaryPrice}</strong>
+          </div>
+          <div className="summary-row">
+            <span>Backend match</span>
+            <strong>
+              {isLoadingVariations
+                ? "Checking"
+                : matchedVariation
+                  ? `Variation #${matchedVariation.id}`
+                  : "Not found"}
+            </strong>
           </div>
         </section>
 
+        {variationError && (
+          <p className="integration-status is-error">
+            WooCommerce unavailable: {variationError}
+          </p>
+        )}
+
         <div className="panel-actions">
-          <button className="primary-button">Request Quote</button>
+          <button
+            className="primary-button"
+            disabled={!hasLiveMatch}
+            onClick={openMatchedVariation}
+          >
+            {hasLiveMatch ? "Open Product" : "Select Available Combo"}
+          </button>
           <button className="ghost-button">Book Studio Call</button>
         </div>
       </aside>

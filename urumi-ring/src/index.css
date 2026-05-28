@@ -188,6 +188,13 @@ a:focus-visible {
   box-shadow: 0 18px 50px rgba(215, 173, 77, 0.22);
 }
 
+.primary-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.46;
+  transform: none;
+  box-shadow: none;
+}
+
 .home-page,
 .store-page,
 .config-page {
@@ -798,6 +805,23 @@ a:focus-visible {
   margin-top: 30px;
 }
 
+.integration-status {
+  margin: 18px 0 0;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.04);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.integration-status.is-error {
+  border-color: rgba(217, 154, 138, 0.35);
+  color: rgba(255, 205, 196, 0.86);
+  background: rgba(217, 154, 138, 0.08);
+}
+
 @keyframes heroTextIn {
   from {
     opacity: 0;
@@ -827,9 +851,6 @@ a:focus-visible {
     align-items: end;
   }
 
-  .hero-canvas-premium {
-    transform: translateX(16vw);
-  }
 
   .hero-orbit {
     right: -10vw;

@@ -10,6 +10,7 @@ export const METAL_META = {
   white: {
     label: "White Gold",
     short: "White",
+    wooOption: "White",
     color: "#e8e5df",
     glow: "rgba(232, 229, 223, 0.5)",
     price: 0,
@@ -17,6 +18,7 @@ export const METAL_META = {
   yellow: {
     label: "Yellow Gold",
     short: "Yellow",
+    wooOption: "Yellow",
     color: "#d7ad4d",
     glow: "rgba(215, 173, 77, 0.6)",
     price: 280,
@@ -24,6 +26,7 @@ export const METAL_META = {
   rose: {
     label: "Rose Gold",
     short: "Rose",
+    wooOption: "Rose",
     color: "#d99a8a",
     glow: "rgba(217, 154, 138, 0.58)",
     price: 220,
@@ -31,6 +34,7 @@ export const METAL_META = {
   platinum: {
     label: "Platinum",
     short: "Plat.",
+    wooOption: "Platinum",
     color: "#ccd1d8",
     glow: "rgba(204, 209, 216, 0.5)",
     price: 720,
@@ -38,6 +42,7 @@ export const METAL_META = {
   palladium: {
     label: "Palladium",
     short: "Pallad.",
+    wooOption: "Palladium",
     color: "#b7bcc3",
     glow: "rgba(183, 188, 195, 0.45)",
     price: 460,
@@ -54,11 +59,14 @@ export const STONE_LABELS = {
 }
 
 export const STONE_META = {
-  round: { label: "Brilliant", profile: "Maximum fire", price: 0 },
-  oval: { label: "Oval", profile: "Elongated glow", price: 620 },
-  pear: { label: "Pear", profile: "Soft asymmetry", price: 480 },
-  princess: { label: "Princess", profile: "Clean geometry", price: 760 },
+  round: { label: "Brilliant", wooOption: "Round", aliases: ["Brilliant"], profile: "Maximum fire", price: 0 },
+  oval: { label: "Oval", wooOption: "Oval", aliases: [], profile: "Elongated glow", price: 620 },
+  pear: { label: "Pear", wooOption: "Pear", aliases: [], profile: "Soft asymmetry", price: 480 },
+  princess: { label: "Princess", wooOption: "Princess", aliases: [], profile: "Clean geometry", price: 760 },
 }
+
+export const WOO_VARIATIONS_URL =
+  "http://store-ag8xmv.localtest.me/wp-json/wc/v3/products/13/variations?per_page=100"
 
 export const PRODUCTS = [
   {
