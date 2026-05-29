@@ -40,7 +40,6 @@ function Hero() {
 
 function LandingIntro({
   featuredProduct,
-  onNavigate,
   onConfigure,
 }) {
   return (
@@ -69,13 +68,6 @@ function LandingIntro({
             }
           >
             Open Configurator
-          </button>
-
-          <button
-            className="ghost-button"
-            onClick={() => onNavigate("store")}
-          >
-            View Collection
           </button>
         </div>
       </div>

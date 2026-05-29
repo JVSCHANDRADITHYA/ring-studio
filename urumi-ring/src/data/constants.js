@@ -66,7 +66,7 @@ export const STONE_META = {
 }
 
 export const WOO_VARIATIONS_URL =
-  "http://store-ag8xmv.localtest.me/wp-json/wc/v3/products/13/variations?per_page=100"
+  "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/products/13/variations?per_page=100"
 
 export const PRODUCTS = [
   {

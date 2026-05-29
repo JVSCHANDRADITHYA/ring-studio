@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8000/wp-json/wc/v3/products"
+const API_URL = "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/products"
 
 const CONSUMER_KEY = "ck_xxxxx"
 const CONSUMER_SECRET = "cs_xxxxx"

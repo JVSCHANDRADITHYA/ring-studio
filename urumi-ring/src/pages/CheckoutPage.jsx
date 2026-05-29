@@ -13,7 +13,7 @@ const INITIAL_FORM = {
   note: "",
 }
 
-const WOO_ORDERS_URL = "http://store-ag8xmv.localtest.me/wp-json/wc/v3/orders"
+const WOO_ORDERS_URL = "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/orders"
 
 function getVariationAttribute(variation, name) {
   return variation?.attributes?.find(
