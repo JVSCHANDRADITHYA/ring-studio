@@ -16,7 +16,7 @@ export default function HeroCanvas() {
     const context = canvas.getContext("2d")
 
     const currentFrame = (index) =>
-      `/frames/ezgif-frame-${String(index + 1).padStart(3, "0")}.jpg`
+      `/frames/ezgif-frame-${String(index + 1).padStart(3, "0")}.jpg` 
 
     const images = []
 
@@ -54,17 +54,17 @@ export default function HeroCanvas() {
       const imageHeight = image.height
 
       // MUCH better scaling
-      const scale = Math.min(
-        canvasWidth / imageWidth,
-        canvasHeight / imageHeight
-      ) * 0.95
+const scale = Math.max(
+  canvasWidth / imageWidth,
+  canvasHeight / imageHeight
+)
 
       const width = imageWidth * scale
       const height = imageHeight * scale
 
       // centered properly
       const x = (canvasWidth - width) / 2
-      const y = (canvasHeight - height) / 2 + 30
+      const y = (canvasHeight - height) / 2
 
       context.drawImage(
         image,

@@ -67,8 +67,6 @@ a:focus-visible {
   background: #070707;
 }
 
-
-
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.22);
   border-radius: 999px;
@@ -203,69 +201,46 @@ a:focus-visible {
 .checkout-page {
   min-height: 100vh;
 }
-/* REPLACE YOUR CURRENT .hero-section */
 
-/* REPLACE ONLY .hero-section */
-
-
-
-
-/* REPLACE YOUR CURRENT .hero-sticky */
-
-/* KEEP THIS EXACTLY */
 /* =========================
    LANDING INTRO
 ========================= */
+
 .landing-intro {
   position: relative;
   z-index: 5;
-
   height: 100vh;
-
   display: flex;
   align-items: center;
-
   padding-inline: 8vw;
-
   overflow: hidden;
-
   background:
     radial-gradient(
-      ellipse at center top,
-      rgba(28, 36, 58, 0.38) 0%,
-      rgba(10, 12, 18, 0.22) 35%,
-      rgba(5, 5, 5, 0.82) 72%,
-      #050505 100%
+      circle at top,
+      rgba(20, 20, 30, 0.45),
+      #050505 60%
     );
 }
 
 .landing-intro::before {
   content: "";
-
   position: absolute;
-
   left: 0;
   right: 0;
   bottom: -1px;
-
   height: 220px;
-
   z-index: 3;
-
   pointer-events: none;
-
   background: linear-gradient(
     to bottom,
-    rgba(5,5,5,0) 0%,
-    rgba(5,5,5,0.12) 18%,
-    rgba(5,5,5,0.34) 38%,
-    rgba(5,5,5,0.72) 72%,
+    rgba(5, 5, 5, 0) 0%,
+    rgba(5, 5, 5, 0.12) 18%,
+    rgba(5, 5, 5, 0.34) 38%,
+    rgba(5, 5, 5, 0.72) 72%,
     #050505 100%
   );
-
   filter: blur(18px);
 }
-/* SOFT VIGNETTE BLEND INTO HERO */
 
 .landing-intro::after {
   content: "";
@@ -273,52 +248,47 @@ a:focus-visible {
   position: absolute;
 
   left: 0;
-  bottom: -180px;
+  bottom: -260px;
 
   width: 100%;
-  height: 420px;
+  height: 700px;
 
   pointer-events: none;
 
-  z-index: 2;
+  z-index: 3;
 
   background:
     radial-gradient(
       ellipse at center,
       rgba(5,5,5,0) 0%,
-      rgba(5,5,5,0.12) 34%,
-      rgba(5,5,5,0.34) 52%,
-      rgba(5,5,5,0.72) 74%,
+      rgba(5,5,5,0.10) 35%,
+      rgba(5,5,5,0.28) 55%,
+      rgba(5,5,5,0.55) 75%,
       #050505 100%
     );
 
-  filter: blur(70px);
+  filter: blur(120px);
 }
 .landing-intro-inner {
-  max-width: 640px;
+  max-width: 620px;
 }
 
 .landing-title {
   margin: 0;
-
   font-size: clamp(4rem, 8vw, 7rem);
   line-height: 0.9;
   letter-spacing: -0.06em;
-
   color: white;
 }
 
 .landing-title span {
-  color: rgba(255,255,255,0.72);
+  color: rgba(255, 255, 255, 0.74);
 }
 
 .landing-copy {
   margin-top: 2rem;
-
   max-width: 520px;
-
-  color: rgba(255,255,255,0.62);
-
+  color: rgba(255, 255, 255, 0.62);
   font-size: 1rem;
   line-height: 1.8;
 }
@@ -326,10 +296,8 @@ a:focus-visible {
 .hero-actions {
   display: flex;
   gap: 1rem;
-
   margin-top: 2rem;
 }
-
 
 /* =========================
    HERO SEQUENCE
@@ -350,36 +318,55 @@ a:focus-visible {
 .hero-sticky {
   position: sticky;
   top: 0;
-
   height: 100vh;
-
   overflow: hidden;
-
   background: #050505;
 }
 
 .hero-canvas {
   position: absolute;
   inset: 0;
-
   width: 100vw;
   height: 100vh;
-
   overflow: hidden;
 }
 
 .hero-canvas canvas {
   position: absolute;
   inset: 0;
-
   width: 100vw !important;
   height: 100vh !important;
-
   display: block;
-
   object-fit: cover;
 }
 
+.hero-section::before {
+  content: "";
+
+  position: absolute;
+  left: 50%;
+  top: -120px;
+
+  transform: translateX(-50%);
+
+  width: 1200px;
+  height: 1200px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(215,173,77,0.10) 0%,
+      rgba(215,173,77,0.04) 35%,
+      transparent 70%
+    );
+
+  filter: blur(80px);
+
+  pointer-events: none;
+  z-index: 2;
+}
 
 /* =========================
    REMOVE OLD HERO EFFECTS
@@ -394,6 +381,7 @@ a:focus-visible {
 .hero-canvas-premium {
   display: none !important;
 }
+
 .brand-section {
   min-height: 102svh;
   margin-top: -1px;
@@ -617,14 +605,13 @@ a:focus-visible {
 
 .config-viewer {
   position: relative;
-  min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
 }
 
 .config-canvas {
   position: absolute;
   inset: 0;
-
   width: 100%;
   height: 100%;
 }
@@ -643,11 +630,6 @@ a:focus-visible {
     radial-gradient(circle at 30% 44%, rgba(215, 173, 77, 0.13), transparent 32rem),
     radial-gradient(circle at 78% 12%, rgba(138, 216, 223, 0.11), transparent 22rem),
     #060606;
-}
-
-.config-viewer {
-  position: relative;
-  min-height: 100svh;
 }
 
 .config-toolbar {
@@ -1096,7 +1078,6 @@ a:focus-visible {
     align-items: end;
   }
 
-
   .hero-orbit {
     right: -10vw;
     width: min(78vw, 620px);
@@ -1129,210 +1110,6 @@ a:focus-visible {
   }
 }
 
-/* ADD THESE TO index.css */
-
-
-/* =========================
-   LANDING INTRO
-========================= */
-
-.landing-intro {
-  position: relative;
-  z-index: 5;
-    background: transparent;
-
-  height: 100vh;
-
-  display: flex;
-  align-items: center;
-
-  padding-inline: 8vw;
-
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(20,20,30,0.55),
-      #050505 60%
-    );
-
-  overflow: hidden;
-}
-
-.landing-intro-inner {
-  max-width: 620px;
-}
-
-.landing-title {
-  margin: 0;
-
-  font-size: clamp(4rem, 8vw, 7rem);
-  line-height: 0.9;
-  letter-spacing: -0.06em;
-
-  color: white;
-}
-
-.landing-title span {
-  color: rgba(255,255,255,0.72);
-}
-
-.landing-copy {
-  margin-top: 2rem;
-
-  max-width: 520px;
-
-  color: rgba(255,255,255,0.62);
-
-  font-size: 1rem;
-  line-height: 1.8;
-}
-/* =========================
-   LANDING INTRO
-========================= */
-
-.landing-intro {
-  position: relative;
-  z-index: 5;
-
-  height: 100vh;
-
-  display: flex;
-  align-items: center;
-
-  padding-inline: 8vw;
-
-  background:
-    radial-gradient(
-      circle at top,
-      rgba(20,20,30,0.45),
-      #050505 60%
-    );
-
-  overflow: hidden;
-}
-
-.landing-intro-inner {
-  max-width: 620px;
-}
-
-.landing-title {
-  margin: 0;
-
-  font-size: clamp(4rem, 8vw, 7rem);
-  line-height: 0.9;
-  letter-spacing: -0.06em;
-
-  color: white;
-}
-
-.landing-title span {
-  color: rgba(255,255,255,0.74);
-}
-
-.landing-copy {
-  margin-top: 2rem;
-
-  max-width: 520px;
-
-  color: rgba(255,255,255,0.62);
-
-  font-size: 1rem;
-  line-height: 1.8;
-}
-
-
-/* =========================
-   HERO SEQUENCE
-========================= */
-
-.hero-section {
-  position: relative;
-
-  height: 340vh;
-
-  background: #050505;
-}
-
-.hero-sticky {
-  position: sticky;
-  top: 0;
-
-  height: 100vh;
-
-  overflow: hidden;
-
-  background: #050505;
-}
-
-.hero-canvas {
-  position: absolute;
-  inset: 0;
-
-  width: 100vw;
-  height: 100vh;
-
-  overflow: hidden;
-}
-
-.hero-canvas canvas {
-  position: absolute;
-  inset: 0;
-
-  width: 100vw !important;
-  height: 100vh !important;
-
-  display: block;
-
-  object-fit: cover;
-}
-
-
-/* =========================
-   BUTTONS
-========================= */
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-
-  margin-top: 2rem;
-}
-
-
-/* =========================
-   REMOVE OLD EFFECTS
-========================= */
-
-.hero-orbit,
-.hero-tunnel-glow,
-.hero-scroll-panel,
-.hero-canvas-premium {
-  display: none !important;
-}
-/* =========================
-   HERO BUTTONS
-========================= */
-
-.hero-actions {
-  display: flex;
-  gap: 1rem;
-
-  margin-top: 2rem;
-}
-
-
-/* =========================
-   REMOVE OLD EFFECTS
-========================= */
-
-.hero-orbit,
-.hero-tunnel-glow,
-.noise,
-.hero-scroll-panel,
-.hero-canvas-premium {
-  display: none !important;
-}
-
 @media (max-width: 760px) {
   .navbar {
     height: 66px;
@@ -1346,8 +1123,6 @@ a:focus-visible {
     font-size: 12px;
     letter-spacing: 0.2em;
   }
-
-
 
   .process-grid,
   .testimonial-grid,
