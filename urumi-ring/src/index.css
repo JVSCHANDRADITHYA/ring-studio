@@ -1,8 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 .script-urumi{
   font-family: "Bungee Hairline", cursive;
@@ -246,7 +245,12 @@ a:focus-visible {
 .landing-intro {
   position: relative;
   z-index: 5;
-  height: 100vh;
+  /* FIX: 100dvh so this section's actual rendered height matches
+     what JS reads as the scroll trigger point for the hero animation.
+     If this is 100vh but the browser chrome makes the real height
+     shorter, hero.offsetTop ends up at a different value than expected
+     and the animation fires at the wrong scroll position. */
+  height: 100dvh;
   display: flex;
   align-items: center;
   padding-inline: 8vw;
@@ -343,9 +347,16 @@ a:focus-visible {
 .hero-section {
   position: relative;
 
-  height: 520vh;
+  /* FIX: use 100dvh units so the section height matches the
+     actual dynamic viewport on mobile (excludes browser chrome).
+     520vh was fine on desktop but on mobile 100vh > visible area,
+     which made the total scroll distance longer than expected and
+     shifted all the scroll-position math off by the chrome height. */
+  height: 520dvh;
 
-  margin-top: -100vh;
+  /* Keep the negative margin equal to one dynamic viewport so the
+     hero still slides under the landing-intro correctly. */
+  margin-top: -100dvh;
 
   background: #050505;
 
@@ -355,7 +366,9 @@ a:focus-visible {
 .hero-sticky {
   position: sticky;
   top: 0;
-  height: 100vh;
+  /* FIX: 100dvh = actual visible height, not 100vh which overshoots
+     on mobile Safari and triggers horizontal overflow / blank space. */
+  height: 100dvh;
   overflow: hidden;
   background: #050505;
 }
@@ -363,31 +376,38 @@ a:focus-visible {
 .hero-canvas {
   position: absolute;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  /* FIX: match the sticky wrapper. Using inset:0 already fills the
+     parent, but explicit width/height guard against edge cases. */
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 
 .hero-canvas canvas {
   position: absolute;
   inset: 0;
-  width: 100vw !important;
-  height: 100vh !important;
+  /* FIX: remove width/height overrides here entirely.
+     The canvas element's CSS size is driven by the parent (inset:0),
+     and the drawing resolution (canvas.width / canvas.height) is set
+     in JS via getViewW()/getViewH(). When both CSS *and* JS try to
+     set the canvas size in different units (vw/vh vs px from
+     window.inner*), they can disagree on mobile, stretching the
+     drawing and producing a blank or offset image.
+     Letting CSS fill the parent and JS own the coordinate space
+     keeps them in sync. */
+  width: 100%;
+  height: 100%;
   display: block;
-  object-fit: cover;
 }
 
 .hero-section::before {
   content: "";
-
   position: absolute;
   left: 50%;
   top: -120px;
-
   transform: translateX(-50%);
-
-  width: 1200px;
-  height: 1200px;
+  width: min(1200px, 100vw);   /* ← never wider than viewport */
+  height: min(1200px, 100vw);
 
   border-radius: 50%;
 
