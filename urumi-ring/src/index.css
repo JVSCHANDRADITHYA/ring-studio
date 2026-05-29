@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap");
 @import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Great+Vibes&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 
 .script-urumi{
   font-family: "Bungee Hairline", cursive;
@@ -21,6 +23,18 @@
 
   color: var(--gold);
 }
+
+.script-accent-play {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 400;
+
+  font-size: 1.25em;
+
+  letter-spacing: 0;
+
+  color: #e6cf9a;
+}
+
 .script-accent-white {
   font-family: "Luxurious Script", cursive;
   font-weight: 400;

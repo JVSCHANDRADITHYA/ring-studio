@@ -25,11 +25,13 @@ function Hero() {
       </h2>
       <br />
       <p className="hero-story-copy">
+        <span className="script-accent-play">
         Configure every detail.
         Choose precious metals,
         stone cuts, proportions,
         and finishes designed around
         your story and your style.
+        </span>
       </p>
     </div>
 
@@ -55,9 +57,11 @@ function LandingIntro({
         </h1>
 
         <p className="landing-copy">
+          <span className="script-accent-play">
           A cinematic ring studio for bespoke
           decisions. Designed around motion,
           craftsmanship, and precision.
+          </span>
         </p>
 
         <div className="hero-actions">

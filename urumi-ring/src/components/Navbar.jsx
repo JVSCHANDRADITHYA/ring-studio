@@ -41,7 +41,9 @@ export default function Navbar({ onNavigate }) {
             onNavigate("configurator")
           }
         >
-          Configure Ring
+          <span className="script-accent-urumi">
+            Bespoke Studio
+          </span>
         </button>
       </div>
     </nav>
