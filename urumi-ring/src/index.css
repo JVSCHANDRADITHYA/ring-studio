@@ -1,4 +1,37 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Luxurious+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bungee+Inline&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bungee+Hairline&family=Great+Vibes&display=swap');
+
+.script-urumi{
+  font-family: "Bungee Hairline", cursive;
+  font-weight: 400;
+  font-size: 1.25em;
+  letter-spacing: 0.12em;
+  color: var(--gold);
+}
+
+.script-accent {
+  font-family: "Luxurious Script", cursive;
+  font-weight: 400;
+
+  font-size: 1.25em;
+
+  letter-spacing: 0;
+
+  color: var(--gold);
+}
+.script-accent-white {
+  font-family: "Luxurious Script", cursive;
+  font-weight: 400;
+
+  font-size: 1.25em;
+
+  letter-spacing: 0;
+
+  color: #fff;
+}
 
 :root {
   color-scheme: dark;
@@ -125,14 +158,18 @@ a:focus-visible {
   display: grid;
   place-items: center;
   color: var(--gold);
-  font-family: "Cormorant Garamond", serif;
+  font-family: "Bungee Hairline", cursive;
   font-size: 20px;
 }
 
 .brand-name {
-  font-size: 13px;
-  font-weight: 700;
+  font-family: "Bungee Hairline", cursive;
+  font-size: 15px;
+  font-weight: 1000px;
+  font-style: bold;
+  font-variant: normal;
   letter-spacing: 0.28em;
+  color: #fff;
 }
 
 .nav-links {
@@ -306,7 +343,7 @@ a:focus-visible {
 .hero-section {
   position: relative;
 
-  height: 220vh;
+  height: 520vh;
 
   margin-top: -100vh;
 
@@ -366,6 +403,55 @@ a:focus-visible {
 
   pointer-events: none;
   z-index: 2;
+}
+
+.hero-story {
+  position: absolute;
+
+  left: 8vw;
+  top: 50%;
+
+  transform: translateY(30px);
+
+  opacity: 0;
+
+  z-index: 20;
+
+  max-width: 560px;
+
+  transition:
+    opacity 120ms linear,
+    transform 120ms linear;
+}
+
+.hero-story-kicker {
+  color: var(--gold);
+
+  letter-spacing: .35em;
+
+  font-size: 12px;
+
+  text-transform: uppercase;
+}
+
+.hero-story-title {
+  margin: 14px 0;
+
+  font-size: clamp(4rem, 7vw, 7rem);
+
+  line-height: .9;
+
+  font-family: "Luxurious Script", cursive;
+}
+
+.hero-story-copy {
+  max-width: 500px;
+
+  color: rgba(255,255,255,.72);
+
+  line-height: 1.8;
+
+  font-size: 1.05rem;
 }
 
 /* =========================

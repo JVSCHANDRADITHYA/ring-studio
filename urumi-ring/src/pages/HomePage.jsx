@@ -10,11 +10,33 @@ import HeroCanvas from "../components/HeroCanvas"
 
 function Hero() {
   return (
-    <section className="hero-section">
-      <div className="hero-sticky">
-        <HeroCanvas />
-      </div>
-    </section>
+<section className="hero-section">
+  <div className="hero-sticky">
+
+    <HeroCanvas />
+
+    <div className="hero-story">
+      <p className="hero-story-kicker">
+        BESPOKE STUDIO
+      </p>
+
+      <h2 className="hero-story-title">
+        Your ring.
+        <br />
+        Your choice.
+      </h2>
+      <br />
+      <p className="hero-story-copy">
+        Configure every detail.
+        Choose precious metals,
+        stone cuts, proportions,
+        and finishes designed around
+        your story and your style.
+      </p>
+    </div>
+
+  </div>
+</section>
   )
 }
 
@@ -29,7 +51,10 @@ function LandingIntro({
         <p className="eyebrow">{BRAND.sub}</p>
 
         <h1 className="landing-title">
+          <span className="script-accent">
           Jewellery that moves like <span>light.</span>
+          </span>
+
         </h1>
 
         <p className="landing-copy">
@@ -70,8 +95,10 @@ function BrandSection({
         <p className="eyebrow">Urumi atelier</p>
 
         <h2 className="section-title">
+          <span className="script-accent-white">
           Not a catalogue.
           <span> A private design room.</span>
+          </span>
         </h2>
       </div>
 

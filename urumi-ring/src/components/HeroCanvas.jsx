@@ -90,10 +90,10 @@ const scale = Math.max(
       const startScroll = intro.offsetHeight
 
       // total animation distance
-      const endScroll =
-        startScroll +
-        hero.offsetHeight -
-        window.innerHeight
+const animationDistance = window.innerHeight * 3
+
+const endScroll =
+  startScroll + animationDistance + 300 // extra 300px for better end timing
 
       const currentScroll = window.scrollY
 
@@ -115,6 +115,28 @@ const scale = Math.max(
       const scrollFraction =
         (currentScroll - startScroll) /
         (endScroll - startScroll)
+      
+        const heroStory =
+  document.querySelector(".hero-story")
+
+if (heroStory) {
+const opacity =
+  scrollFraction < 0.05
+    ? 0
+    : scrollFraction < 0.20
+    ? (scrollFraction - 0.05) / 0.15
+    : scrollFraction > 0.85
+    ? 1 - (scrollFraction - 0.85) / 0.15
+    : 1
+
+  heroStory.style.opacity = opacity
+
+  heroStory.style.transform = `
+    translateY(
+      ${30 - opacity * 30}px
+    )
+  `
+}
 
       const frameIndex = Math.min(
         TOTAL_FRAMES - 1,
@@ -129,7 +151,7 @@ const scale = Math.max(
     }
 
     resizeCanvas()
-
+onScroll()
     window.addEventListener(
       "resize",
       resizeCanvas
