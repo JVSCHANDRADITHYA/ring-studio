@@ -2,8 +2,6 @@
 
 import {
   BRAND,
-  PROCESS_STEPS,
-  TESTIMONIALS,
 } from "../data/constants"
 
 import HeroCanvas from "../components/HeroCanvas"
@@ -128,77 +126,135 @@ function BrandSection({
   )
 }
 
-function ProcessSection() {
+function ProcessSection({ onConfigure, featuredProduct }) {
+  const cards = [
+    {
+      image: "public/studio.jpg",
+      title: "Private Studio",
+      text: "A quiet design space focused on one object, one decision, and one story."
+    },
+    {
+      image: "public/ring.webp",
+      title: "Your Ring",
+      text: "Experiment with proportions, cuts, metals, and finishes in real time."
+    },
+    {
+      image: "public/craft.jpg",
+      title: "Craftsmanship",
+      text: "Traditional bench work combined with modern precision manufacturing."
+    },
+    {
+      image: "public/gold.jpg",
+      title: "Material",
+      text: "From molten gold to final polish, every stage remains visible."
+    }
+  ]
+
   return (
-    <section className="section">
-      <div className="section-inner">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">
-              Studio flow
-            </p>
+    <section className="studio-showcase">
 
-            <h2 className="section-title">
-              From preview to
-              <span> proposal.</span>
-            </h2>
-          </div>
-        </div>
+      <div className="section-head center">
+        <p className="eyebrow">
+          Studio flow
+        </p>
 
-        <div className="process-grid">
-          {PROCESS_STEPS.map((step) => (
+        <h2 className="section-title">
+          Designed around
+          <span> craftsmanship.</span>
+        </h2>
+      </div>
+
+      <div className="marquee">
+        <div className="marquee-track">
+
+          {[...cards, ...cards].map((card, index) => (
             <article
-              className="process-item"
-              key={step.num}
+              key={index}
+              className="glass-card"
             >
-              <span className="process-num">
-                {step.num}
-              </span>
+              <img
+                src={card.image}
+                alt={card.title}
+              />
 
-              <h3>{step.title}</h3>
-
-              <p>{step.body}</p>
+              <div className="glass-card-body">
+                <h3>{card.title}</h3>
+                <p>{card.text}</p>
+              </div>
             </article>
           ))}
+
         </div>
       </div>
+
+      <div className="studio-cta">
+        <button
+          className="primary-button"
+          onClick={() =>
+            onConfigure(featuredProduct)
+          }
+        >
+          Open Configurator
+        </button>
+      </div>
+
     </section>
   )
 }
 
-function TestimonialsSection() {
+function FooterSection() {
   return (
-    <section className="section">
-      <div className="section-inner">
-        <div className="section-head">
-          <div>
-            <p className="eyebrow">
-              Client notes
-            </p>
+    <footer className="site-footer">
 
-            <h2 className="section-title">
-              Built for confident
-              <span> decisions.</span>
-            </h2>
-          </div>
-        </div>
+      <div className="footer-column">
 
-        <div className="testimonial-grid">
-          {TESTIMONIALS.map((item) => (
-            <figure
-              className="testimonial"
-              key={item.author}
-            >
-              <p>"{item.quote}"</p>
+        <h3>Atelier</h3>
 
-              <footer>
-                {item.author} / {item.location}
-              </footer>
-            </figure>
-          ))}
-        </div>
+        <a href="#">
+          About Us
+        </a>
+
+        <a href="#">
+          Craft Process
+        </a>
+
+        <a href="#">
+          Shipping Policy
+        </a>
+
+        <a href="#">
+          Privacy Policy
+        </a>
+
+        <a href="#">
+          Terms
+        </a>
+
       </div>
-    </section>
+
+      <div className="footer-column">
+
+        <h3>Contact</h3>
+
+        <a href="#">
+          @atelier.studio
+        </a>
+
+        <a href="#">
+          @atelier.rings
+        </a>
+
+        <a href="#">
+          hello@atelier.com
+        </a>
+
+        <a href="#">
+          +91 99999 99999
+        </a>
+
+      </div>
+
+    </footer>
   )
 }
 
@@ -222,9 +278,12 @@ export default function HomePage({
         onConfigure={onConfigure}
       />
 
-      <ProcessSection />
+<ProcessSection
+  featuredProduct={featuredProduct}
+  onConfigure={onConfigure}
+/>
 
-      <TestimonialsSection />
+<FooterSection />
     </div>
   )
 }

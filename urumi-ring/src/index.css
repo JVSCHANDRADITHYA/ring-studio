@@ -1135,6 +1135,349 @@ a:focus-visible {
   line-height: 1.65;
 }
 
+/* =========================================
+   STUDIO SHOWCASE
+========================================= */
+
+.studio-showcase {
+  position: relative;
+
+  padding: 140px 0;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 15% 20%,
+      rgba(215,173,77,0.08),
+      transparent 35%
+    ),
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(255,255,255,0.04),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #050505,
+      #070707
+    );
+}
+
+.studio-showcase .section-head {
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  gap: 28px;
+
+  width: max-content;
+
+  animation:
+    marqueeScroll 38s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* =========================================
+   LUXURY GLASS CARD
+========================================= */
+
+.glass-card {
+  position: relative;
+
+  width: 420px;
+  flex-shrink: 0;
+
+  overflow: hidden;
+
+  border-radius: 32px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.09),
+      rgba(255,255,255,0.03)
+    );
+
+  border:
+    1px solid rgba(255,255,255,0.12);
+
+  backdrop-filter:
+    blur(30px)
+    saturate(180%);
+
+  -webkit-backdrop-filter:
+    blur(30px)
+    saturate(180%);
+
+  box-shadow:
+    0 35px 90px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.18);
+
+  transition:
+    transform .4s ease,
+    border-color .4s ease,
+    box-shadow .4s ease;
+}
+
+.glass-card:hover {
+  transform:
+    translateY(-10px);
+
+  border-color:
+    rgba(255,255,255,0.25);
+
+  box-shadow:
+    0 45px 120px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.22);
+}
+
+/* glass reflection */
+
+.glass-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+  left: -35%;
+
+  width: 70%;
+  height: 220%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,0.08),
+      transparent
+    );
+
+  transform:
+    rotate(20deg);
+
+  pointer-events: none;
+
+  z-index: 3;
+}
+
+/* luxury gold glow */
+
+.glass-card::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(215,173,77,0.14),
+      transparent 60%
+    );
+
+  pointer-events: none;
+
+  z-index: 1;
+}
+
+/* =========================================
+   IMAGE
+========================================= */
+
+.glass-card img {
+  width: 100%;
+  height: 300px;
+
+  object-fit: cover;
+
+  display: block;
+
+  filter:
+    grayscale(100%)
+    brightness(0.85);
+
+  transition:
+    filter 0.6s ease,
+    transform 0.8s ease;
+
+  mask-image:
+    linear-gradient(
+      to bottom,
+      black 72%,
+      transparent
+    );
+
+  -webkit-mask-image:
+    linear-gradient(
+      to bottom,
+      black 72%,
+      transparent
+    );
+}
+
+.glass-card:hover img {
+  filter:
+    grayscale(0%)
+    contrast(1)
+    brightness(1);
+
+  transform:
+    scale(1.05);
+} 
+/* =========================================
+   CARD CONTENT
+========================================= */
+
+.glass-card-body {
+  position: relative;
+  z-index: 5;
+
+  margin-top: -42px;
+
+  padding:
+    0 24px
+    28px;
+}
+
+.glass-card-body h3 {
+  margin: 0;
+
+  font-size: 28px;
+
+  color: white;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-weight: 400;
+}
+
+.glass-card-body p {
+  margin-top: 14px;
+
+  color:
+    rgba(255,255,255,0.62);
+
+  line-height: 1.8;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   CTA
+========================================= */
+
+.studio-cta {
+  margin-top: 80px;
+
+  display: flex;
+  justify-content: center;
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.site-footer {
+  margin-top: 100px;
+
+  padding:
+    100px 8vw;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 80px;
+
+  border-top:
+    1px solid rgba(255,255,255,0.08);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0.02),
+      transparent
+    );
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+
+  gap: 14px;
+}
+
+.footer-column h3 {
+  margin: 0 0 18px;
+
+  color: white;
+
+  font-family:
+    "Cormorant Garamond",
+    serif;
+
+  font-size: 30px;
+
+  font-weight: 400;
+}
+
+.footer-column a {
+  color:
+    rgba(255,255,255,0.58);
+
+  text-decoration: none;
+
+  transition:
+    color .25s ease,
+    transform .25s ease;
+}
+
+.footer-column a:hover {
+  color: white;
+
+  transform:
+    translateX(4px);
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+  .glass-card {
+    width: 320px;
+  }
+
+  .site-footer {
+    flex-direction: column;
+  }
+}
+
 @keyframes heroTextIn {
   from {
     opacity: 0;
