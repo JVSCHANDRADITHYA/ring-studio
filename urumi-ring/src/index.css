@@ -1577,6 +1577,91 @@ a:focus-visible {
    MOBILE FIX
 ========================================= */
 
+.ring-loader {
+  position: absolute;
+  inset: 0;
+  z-index: 999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(25,25,25,.35),
+      rgba(5,5,5,.96)
+    );
+
+  backdrop-filter: blur(24px);
+}
+
+.ring-loader-inner {
+  width: min(440px, 80vw);
+  text-align: center;
+}
+
+.ring-loader-kicker {
+  margin: 0 0 16px;
+
+  color: rgba(255,255,255,.35);
+
+  font-size: 11px;
+
+  letter-spacing: .35em;
+}
+
+.ring-loader-title {
+  margin: 0 0 32px;
+
+  font-size: clamp(2rem, 4vw, 3rem);
+
+  font-weight: 300;
+
+  color: white;
+}
+
+.ring-loader-title span {
+  color: var(--gold);
+}
+
+.ring-loader-track {
+  width: 100%;
+  height: 2px;
+
+  overflow: hidden;
+
+  background: rgba(255,255,255,.08);
+}
+
+.ring-loader-fill {
+  height: 100%;
+
+  background: linear-gradient(
+    90deg,
+    rgba(215,173,77,.2),
+    #d7ad4d,
+    rgba(215,173,77,.2)
+  );
+
+  box-shadow:
+    0 0 24px rgba(215,173,77,.8);
+
+  transition: width .25s ease;
+}
+
+.ring-loader-percent {
+  display: block;
+
+  margin-top: 16px;
+
+  color: rgba(255,255,255,.45);
+
+  font-size: 12px;
+
+  letter-spacing: .25em;
+}
+
 @media (max-width: 760px) {
 
   /* ---------- NAV ---------- */

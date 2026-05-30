@@ -1,6 +1,11 @@
 import { useEffect, useMemo, useState } from "react"
 import { Canvas } from "@react-three/fiber"
-import { Environment, OrbitControls, Stage } from "@react-three/drei"
+import {
+  Environment,
+  OrbitControls,
+  Stage,
+  useProgress,
+} from "@react-three/drei"
 import Ring3D from "./Ring3D"
 import {
   METALS,
@@ -44,12 +49,47 @@ function formatWooPrice(price) {
   return formatUsd.format(numericPrice)
 }
 
+function RingLoader() {
+  const { progress } = useProgress()
+
+  return (
+    <div className="ring-loader">
+      <div className="ring-loader-inner">
+
+        <p className="ring-loader-kicker">
+          URUMI ATELIER
+        </p>
+
+        <h2 className="ring-loader-title">
+          Preparing your
+          <span> studio.</span>
+        </h2>
+
+        <div className="ring-loader-track">
+          <div
+            className="ring-loader-fill"
+            style={{
+              width: `${progress}%`,
+            }}
+          />
+        </div>
+
+        <span className="ring-loader-percent">
+          {Math.round(progress)}%
+        </span>
+
+      </div>
+    </div>
+  )
+}
+
 export default function Configurator({ product, onBack, onCheckout }) {
   const [metal, setMetal] = useState(product?.metal || "rose")
   const [stone, setStone] = useState(product?.stone || "round")
   const [variations, setVariations] = useState([])
   const [isLoadingVariations, setIsLoadingVariations] = useState(true)
   const [variationError, setVariationError] = useState("")
+  const [ringLoaded, setRingLoaded] = useState(false)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -132,6 +172,7 @@ export default function Configurator({ product, onBack, onCheckout }) {
   return (
     <div className="config-page">
       <section className="config-viewer" aria-label="3D ring preview">
+        {!ringLoaded && <RingLoader />}
         <div className="config-toolbar">
           <button className="icon-button" onClick={onBack} aria-label="Back to collection">
             <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
@@ -155,7 +196,7 @@ export default function Configurator({ product, onBack, onCheckout }) {
             <directionalLight position={[4, 5, 5]} intensity={4.5} />
             <directionalLight position={[-5, 0, -4]} intensity={1.1} color="#8ad8df" />
             <Stage intensity={0.18} adjustCamera={false} environment={null}>
-              <Ring3D metal={metal} stone={stone} autoRotate rotationSpeed={0.0016} />
+              <Ring3D metal={metal} stone={stone} autoRotate rotationSpeed={0.0016} onLoaded={() => setRingLoaded(true)} />
             </Stage>
             <Environment preset="city" />
             <OrbitControls enablePan={false} minDistance={2.7} maxDistance={6.2} />

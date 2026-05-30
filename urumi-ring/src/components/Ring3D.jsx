@@ -1,4 +1,4 @@
-import { useGLTF } from "@react-three/drei"
+import { useGLTF, useProgress } from "@react-three/drei"
 import { useFrame } from "@react-three/fiber"
 import { useEffect, useMemo, useRef } from "react"
 import * as THREE from "three"
@@ -23,6 +23,7 @@ function isStoneMesh(name) {
 }
 
 export default function Ring3D({
+  onLoaded,
   src = "/ring_4.glb",
   metal = "rose",
   stone = "round",
@@ -36,6 +37,14 @@ export default function Ring3D({
   const { scene } = useGLTF(src)
   const groupRef = useRef()
   const clonedScene = useMemo(() => scene.clone(true), [scene])
+
+  const { progress } = useProgress()
+
+useEffect(() => {
+  if (progress === 100 && onLoaded) {
+    onLoaded()
+  }
+}, [progress, onLoaded])
 
   useFrame(() => {
     if (autoRotate && groupRef.current) {
