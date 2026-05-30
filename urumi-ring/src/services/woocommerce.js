@@ -1,12 +1,10 @@
 const API_URL = "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/products"
 
-const CONSUMER_KEY = "ck_xxxxx"
-const CONSUMER_SECRET = "cs_xxxxx"
 
 export async function fetchProducts() {
   try {
     const response = await fetch(
-      `${API_URL}?consumer_key=${CONSUMER_KEY}&consumer_secret=${CONSUMER_SECRET}`
+      `${API_URL}`
     )
 
     const rawProducts = await response.json()
