@@ -13,12 +13,28 @@ const INITIAL_FORM = {
   note: "",
 }
 
-const WOO_ORDERS_URL = import.meta.env.ORDERS_API
+const WOO_ORDERS_URL =
+  import.meta.env.VITE_ORDERS_API ||
+  "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/orders"
 
 function getVariationAttribute(variation, name) {
   return variation?.attributes?.find(
     (attribute) => attribute.name?.toLowerCase() === name.toLowerCase(),
   )?.option
+}
+
+async function readJsonResponse(response) {
+  const text = await response.text()
+
+  if (!text.trim()) {
+    return null
+  }
+
+  try {
+    return JSON.parse(text)
+  } catch {
+    throw new Error(`WooCommerce returned non-JSON content from ${response.url}`)
+  }
 }
 
 export default function CheckoutPage({ item, onBack, onHome }) {
@@ -92,10 +108,14 @@ export default function CheckoutPage({ item, onBack, onHome }) {
         }),
       })
 
-      const data = await response.json()
+      const data = await readJsonResponse(response)
 
       if (!response.ok) {
-        throw new Error(data.message || `WooCommerce returned ${response.status}`)
+        throw new Error(data?.message || `WooCommerce returned ${response.status}`)
+      }
+
+      if (!data) {
+        throw new Error("WooCommerce returned an empty order response")
       }
 
       setOrderNumber(data.number || data.id)

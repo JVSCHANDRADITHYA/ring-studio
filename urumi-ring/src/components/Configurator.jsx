@@ -28,7 +28,9 @@ function normalizeOption(value) {
     .replace(/[^a-z0-9]+/g, "")
 }
 
-const WOO_VARIATIONS_URL = import.meta.env.VARIATIONS_API
+const WOO_VARIATIONS_URL =
+  import.meta.env.VITE_VARIATIONS_API ||
+  "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/products/13/variations?per_page=100"
 
 function getVariationAttribute(variation, name) {
   return variation.attributes?.find(
@@ -48,6 +50,20 @@ function formatWooPrice(price) {
   if (Number.isNaN(numericPrice)) return price
 
   return formatUsd.format(numericPrice)
+}
+
+async function readJsonResponse(response) {
+  const text = await response.text()
+
+  if (!text.trim()) {
+    return null
+  }
+
+  try {
+    return JSON.parse(text)
+  } catch {
+    throw new Error(`WooCommerce returned non-JSON content from ${response.url}`)
+  }
 }
 
 function RingLoader() {
@@ -108,7 +124,7 @@ export default function Configurator({ product, onBack, onCheckout }) {
           throw new Error(`WooCommerce returned ${response.status}`)
         }
 
-        const data = await response.json()
+        const data = await readJsonResponse(response)
         setVariations(Array.isArray(data) ? data : [])
       } catch (error) {
         if (error.name !== "AbortError") {
