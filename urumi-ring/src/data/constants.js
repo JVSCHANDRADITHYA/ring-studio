@@ -65,8 +65,6 @@ export const STONE_META = {
   princess: { label: "Princess", wooOption: "Princess", aliases: [], profile: "Clean geometry", price: 760 },
 }
 
-export const WOO_VARIATIONS_URL =
-  "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/products/13/variations?per_page=100"
 
 export const PRODUCTS = [
   {

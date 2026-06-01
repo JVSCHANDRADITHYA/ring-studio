@@ -13,7 +13,6 @@ import {
   STONES,
   STONE_LABELS,
   STONE_META,
-  WOO_VARIATIONS_URL,
 } from "../data/constants"
 
 const formatUsd = new Intl.NumberFormat("en-US", {
@@ -28,6 +27,8 @@ function normalizeOption(value) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "")
 }
+
+const WOO_VARIATIONS_URL = import.meta.env.VARIATIONS_API
 
 function getVariationAttribute(variation, name) {
   return variation.attributes?.find(
