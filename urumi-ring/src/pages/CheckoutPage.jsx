@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { METAL_META, STONE_LABELS } from "../data/constants"
+import { createWooOrder } from "../services/wooApi"
 
 const INITIAL_FORM = {
   firstName: "",
@@ -13,28 +14,10 @@ const INITIAL_FORM = {
   note: "",
 }
 
-const WOO_ORDERS_URL =
-  import.meta.env.VITE_ORDERS_API ||
-  "http://store-gmu7ud.13-203-68-186.sslip.io/wp-json/wc/v3/orders"
-
 function getVariationAttribute(variation, name) {
   return variation?.attributes?.find(
     (attribute) => attribute.name?.toLowerCase() === name.toLowerCase(),
   )?.option
-}
-
-async function readJsonResponse(response) {
-  const text = await response.text()
-
-  if (!text.trim()) {
-    return null
-  }
-
-  try {
-    return JSON.parse(text)
-  } catch {
-    throw new Error(`WooCommerce returned non-JSON content from ${response.url}`)
-  }
 }
 
 export default function CheckoutPage({ item, onBack, onHome }) {
@@ -74,50 +57,7 @@ export default function CheckoutPage({ item, onBack, onHome }) {
     setOrderError("")
 
     try {
-      const response = await fetch(WOO_ORDERS_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          payment_method: "cod",
-          payment_method_title: "Cash on Delivery",
-          set_paid: false,
-          status: "processing",
-
-          billing: {
-            first_name: form.firstName,
-            last_name: form.lastName,
-            address_1: form.address,
-            city: form.city,
-            postcode: form.postcode,
-            country: form.country,
-            email: form.email,
-            phone: form.phone,
-          },
-
-          customer_note: form.note,
-
-          line_items: [
-            {
-              product_id: item.product.wooProductId || 13,
-              variation_id: item.variation.id,
-              quantity: 1,
-            },
-          ],
-        }),
-      })
-
-      const data = await readJsonResponse(response)
-
-      if (!response.ok) {
-        throw new Error(data?.message || `WooCommerce returned ${response.status}`)
-      }
-
-      if (!data) {
-        throw new Error("WooCommerce returned an empty order response")
-      }
-
+      const data = await createWooOrder({ form, item })
       setOrderNumber(data.number || data.id)
       setSubmitted(true)
     } catch (error) {
